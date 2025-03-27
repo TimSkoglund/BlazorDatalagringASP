@@ -1,32 +1,48 @@
+using Data.Context;
 using Data.Entities.Customers;
 using Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
-
+    
 public class CustomerRepository : ICustomerRepository
 {
-    public Task<int> Create(Customer customer, CancellationToken cancellationToken)
+    private readonly BlazorDatalagringContext _databaseContext;
+
+    public CustomerRepository(BlazorDatalagringContext context)
     {
-        throw new NotImplementedException();
-        
+        _databaseContext = context;
     }
-    public Task<Customer> GetByCustomerId(int customerId, CancellationToken cancellationToken)
+    public async Task<int> Create(Customer customer, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _databaseContext.AddAsync(customer);
+        return await _databaseContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<List<Customer>> GetCustomers(CancellationToken cancellationToken)
+    public async Task<Customer> GetByCustomerId(int customerId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        // Den hämtade kunden | databasen.    tabellen. vad man vill göra
+        var customer = await _databaseContext.Customer.FindAsync(customerId, cancellationToken);
+        return customer;
     }
 
-    public Task Delete(int customerId, CancellationToken cancellationToken)
+    public async Task<List<Customer>> GetCustomers(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var customers = await _databaseContext.Customer.ToListAsync(cancellationToken);
+        return customers ?? new();
     }
 
-    public Task Update(Customer customer, CancellationToken cancellationToken)
+    public async Task Delete(int customerId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var customer = await GetByCustomerId(customerId, cancellationToken);
+
+        _databaseContext.Customer.Remove(customer);
+        await _databaseContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task Update(Customer customer, CancellationToken cancellationToken)
+    {
+        _databaseContext.Customer.Update(customer);
+        await _databaseContext.SaveChangesAsync(cancellationToken);
     }
 }

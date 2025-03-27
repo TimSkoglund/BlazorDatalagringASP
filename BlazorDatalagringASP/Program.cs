@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-using var db = new ProjectContext();
+using var db = new BlazorDatalagringContext();
 
 Console.WriteLine($"Database path: {db.DbPath}.");
 
@@ -20,10 +20,10 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 // DB Context
-builder.Services.AddDbContext<ProjectContext>();
+builder.Services.AddDbContext<BlazorDatalagringContext>();
 
 // Seed managers
-using (var context = new ProjectContext())
+using (var context = new BlazorDatalagringContext())
 {
     // Skapar databasen om den inte finns. Returnerar true om databasen skapades just nu.
     if (context.Database.EnsureCreated())

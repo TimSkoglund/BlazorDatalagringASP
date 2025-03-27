@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Context;
 
-public class ProjectContext: DbContext
+public class BlazorDatalagringContext: DbContext
 {
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Manager> Manager { get; set; }
@@ -16,7 +16,7 @@ public class ProjectContext: DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
     
-    public ProjectContext()
+    public BlazorDatalagringContext()
     {
         var currentDir = Directory.GetCurrentDirectory();
 
