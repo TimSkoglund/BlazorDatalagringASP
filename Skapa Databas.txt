@@ -1,0 +1,10 @@
+dotnet tool install --global dotnet-ef
+
+För att skapa databasen:
+cd ./Data
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+För att ta bort:
+dotnet ef database update 0
+dotnet ef migrations remove

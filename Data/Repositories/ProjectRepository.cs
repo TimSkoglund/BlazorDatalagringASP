@@ -19,4 +19,14 @@ public class ProjectRepository : IProjectRepository
     {
         throw new NotImplementedException();
     }
+
+    Task IProjectRepository.Delete(int projectId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task IProjectRepository.Update(Project project, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -15,7 +15,17 @@ public class CustomerRepository : ICustomerRepository
         throw new NotImplementedException();
     }
 
-    public Task<Customer> GetCustomer(CancellationToken cancellationToken)
+    public Task<List<Customer>> GetCustomers(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(int customerId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Update(Customer customer, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
